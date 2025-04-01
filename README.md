@@ -3,6 +3,7 @@ langchain 프레임워크 스터디 목적
 
 # 소스 코드
 - 소스 코드의 출처는 https://github.com/teddylee777/langchain-kr에 있는 teddynote님의 소스 코드를 사용하였음.
+- Markdown의 내용 또한 teddynote님의 설명을 가져옴.
 
 # 실습 방법
 - 위키독스(https://wikidocs.net/book/14314)의 내용을 챕터별로 실습하면서 개념 익히기
