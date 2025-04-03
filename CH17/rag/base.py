@@ -2,6 +2,8 @@ from langchain_core.prompts import load_prompt
 from langchain_core.output_parsers import StrOutputParser
 from langchain_community.vectorstores import FAISS
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
+from langchain_community.embeddings import OllamaEmbeddings
+from langchain_chroma import Chroma
 
 from abc import ABC, abstractmethod
 from operator import itemgetter
@@ -28,7 +30,7 @@ class RetrievalChain(ABC):
         return text_splitter.split_documents(docs)
 
     def create_embedding(self):
-        return OpenAIEmbeddings(model="text-embedding-3-small")
+        return OllamaEmbeddings(model="nomic-embed-text")
 
     def create_vectorstore(self, split_docs):
         return FAISS.from_documents(
@@ -43,7 +45,12 @@ class RetrievalChain(ABC):
         return dense_retriever
 
     def create_model(self):
-        return ChatOpenAI(model_name="gpt-4o-mini", temperature=0)
+        return ChatOpenAI(
+            api_key="ollama",
+            model="llama3.2:1b",
+            base_url="http://localhost:11434/v1",
+            temperature=0,
+        )       
 
     def create_prompt(self):
         return hub.pull("teddynote/rag-prompt-chat-history")
